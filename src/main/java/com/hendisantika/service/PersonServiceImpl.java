@@ -37,4 +37,12 @@ public class PersonServiceImpl implements PersonService{
         String newPass = ResetPasswordDemoUtil.encryptSHY2(person.getPassword());
         return personRepository.login(person.getEmail(), newPass);
     }
+
+    @Override
+    public boolean updatePassword(String email, String password) {
+        Person temp = personRepository.getPersonByEmail(email);
+        temp.setPassword(ResetPasswordDemoUtil.encryptSHY2(password));
+        personRepository.save(temp);
+        return true;
+    }
 }

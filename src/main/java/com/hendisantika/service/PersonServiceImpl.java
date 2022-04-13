@@ -45,4 +45,8 @@ public class PersonServiceImpl implements PersonService{
         personRepository.save(temp);
         return true;
     }
+
+    public Person findByEmail(String email) {
+        return personRepository.getPersonByEmail(email);
+    }
 }

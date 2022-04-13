@@ -104,6 +104,24 @@ public abstract class ResetPasswordDemoUtil {
             return emailTemplate ;
         }
 
+        /**
+         * Method will resolve the filestone application Machine Host Name
+         * @param request
+         * @return {@link String}
+         */
+        public static String getMachineHostName(HttpServletRequest request) {
+            StringBuffer url = request.getRequestURL();
+            String uri = request.getRequestURI();
+            int idx = (((uri != null) && (uri.length() > 0)) ? url.indexOf(uri) : url.length());
+            String host = url.substring(0, idx); //base url
+            idx = host.indexOf("://");
+            if(idx > 0) {
+                host = host.substring(idx); //remove scheme if present
+            }
+
+            return host ;
+        }
+
     }
 
 }

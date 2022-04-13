@@ -24,4 +24,11 @@ public class PersonServiceImpl implements PersonService{
     Map<Person, String> tokenRegister = new HashMap<>();
 
     private final PersonRepository personRepository;
+
+    @Override
+    public Person  signup(Person person) {
+        String newPassword = ResetPasswordDemoUtil.encryptSHY2(person.getPassword());
+        person.setPassword(newPassword);
+        return personRepository.save(person);
+    }
 }

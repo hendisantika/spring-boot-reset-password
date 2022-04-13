@@ -31,4 +31,10 @@ public class PersonServiceImpl implements PersonService{
         person.setPassword(newPassword);
         return personRepository.save(person);
     }
+
+    @Override
+    public Person  login(Person person) {
+        String newPass = ResetPasswordDemoUtil.encryptSHY2(person.getPassword());
+        return personRepository.login(person.getEmail(), newPass);
+    }
 }

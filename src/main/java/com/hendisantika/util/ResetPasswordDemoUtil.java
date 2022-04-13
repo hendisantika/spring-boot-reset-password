@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Random;
 
 /**
  * Created by IntelliJ IDEA.
@@ -41,5 +42,23 @@ public abstract class ResetPasswordDemoUtil {
             e.printStackTrace();
         }
         return hexString.toString();
+    }
+
+    // ===============String salt method====================
+    /**
+     * Method will create a salt String
+     * @return {@link String}
+     */
+    public static String getSaltString() {
+        String SALTCHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+        StringBuilder salt = new StringBuilder();
+        Random rnd = new Random();
+        while (salt.length() < 18) {
+            int index = (int) (rnd.nextFloat() * SALTCHARS.length());
+            salt.append(SALTCHARS.charAt(index));
+        }
+
+        return salt.toString();
+
     }
 }

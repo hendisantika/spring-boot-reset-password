@@ -2,6 +2,8 @@ package com.hendisantika.util;
 
 import lombok.extern.slf4j.Slf4j;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Random;
@@ -78,6 +80,28 @@ public abstract class ResetPasswordDemoUtil {
         } else {
             log.error("Field email have a null value in it.", new RuntimeException("At least one attributes returned a null value."));
             return false;
+        }
+
+        /**
+         * Method will retrieve a string content from a given {@link InputStream}
+         * @param is
+         * @return {@link String}
+         */
+        public static String getEmailTemplateFromClasspath(InputStream is) {
+            String emailTemplate = null;
+            try {
+                BufferedReader buf = new BufferedReader(new InputStreamReader(is));
+                String line = buf.readLine();
+                StringBuilder sb = new StringBuilder();
+                while (line != null) {
+                    sb.append(line).append("\n");
+                    line = buf.readLine();
+                }
+                emailTemplate = sb.toString();
+            } catch (Exception e) {
+                log.error("Failed to get Email-Template resource from classpath." ,e);
+            }
+            return emailTemplate ;
         }
 
     }

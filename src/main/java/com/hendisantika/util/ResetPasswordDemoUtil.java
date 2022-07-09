@@ -2,7 +2,9 @@ package com.hendisantika.util;
 
 import lombok.extern.slf4j.Slf4j;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.BufferedReader;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -81,6 +83,7 @@ public abstract class ResetPasswordDemoUtil {
             log.error("Field email have a null value in it.", new RuntimeException("At least one attributes returned a null value."));
             return false;
         }
+    }
 
         /**
          * Method will retrieve a string content from a given {@link InputStream}
@@ -121,7 +124,5 @@ public abstract class ResetPasswordDemoUtil {
 
             return host ;
         }
-
-    }
 
 }

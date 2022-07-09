@@ -41,7 +41,7 @@ public class ResetPassDemoFilter implements Filter {
 
         if (session != null && null != session.getAttribute(USER)) {
             if (requestUrl.contains("/resources") || requestUrl.endsWith("index.html") || requestUrl.contains("/reset-pass-demo") || requestUrl.contains("/h2")) {
-                chain.doFilter(request, response);
+                chain.doFilter((ServletRequest) request, (ServletResponse) response);
                 return;
             } else {
                 String url = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath() + "/index.html";
@@ -53,7 +53,7 @@ public class ResetPassDemoFilter implements Filter {
 
         else if (session == null || (session != null && null == session.getAttribute(USER))) {
             if (requestUrl.contains("/resources") || requestUrl.contains("/reset-pass-demo") || requestUrl.contains("/login.html") || requestUrl.contains("signup.html") || requestUrl.contains("reset.html") || requestUrl.contains("/h2")) {
-                chain.doFilter(request, response);
+                chain.doFilter((ServletRequest) request, (ServletResponse) response);
                 return;
             } else {
                 String url = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath() + "/signup.html";

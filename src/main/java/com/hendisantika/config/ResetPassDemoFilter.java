@@ -1,16 +1,16 @@
 package com.hendisantika.config;
 
+import jakarta.servlet.Filter;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.FilterConfig;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.ServletResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Component;
 
-import javax.servlet.Filter;
-import javax.servlet.FilterChain;
-import javax.servlet.FilterConfig;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
 import java.io.IOException;
 
 /**
@@ -41,25 +41,21 @@ public class ResetPassDemoFilter implements Filter {
 
         if (session != null && null != session.getAttribute(USER)) {
             if (requestUrl.contains("/resources") || requestUrl.endsWith("index.html") || requestUrl.contains("/reset-pass-demo") || requestUrl.contains("/h2")) {
-                chain.doFilter((ServletRequest) request, (ServletResponse) response);
-                return;
+                chain.doFilter(request, response);
             } else {
                 String url = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath() + "/index.html";
                 response.setStatus(HttpServletResponse.SC_MOVED_PERMANENTLY);
                 response.setHeader("Location", url);
-                return;
             }
         }
 
         else if (session == null || (session != null && null == session.getAttribute(USER))) {
             if (requestUrl.contains("/resources") || requestUrl.contains("/reset-pass-demo") || requestUrl.contains("/login.html") || requestUrl.contains("signup.html") || requestUrl.contains("reset.html") || requestUrl.contains("/h2")) {
-                chain.doFilter((ServletRequest) request, (ServletResponse) response);
-                return;
+                chain.doFilter(request, response);
             } else {
                 String url = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath() + "/signup.html";
                 response.setStatus(HttpServletResponse.SC_MOVED_PERMANENTLY);
                 response.setHeader("Location", url);
-                return;
             }
 
         }

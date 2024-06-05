@@ -3,9 +3,9 @@ package com.hendisantika.config;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 /**
  * Created by IntelliJ IDEA.
@@ -17,6 +17,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
  * Time: 19.39
  */
 @Configuration
+@EnableWebMvc
 public class WebMvcConfiguration implements WebMvcConfigurer {
 
     //Array of possible static location inside the application classpath

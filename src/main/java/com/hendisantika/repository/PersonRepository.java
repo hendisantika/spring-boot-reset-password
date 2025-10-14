@@ -16,7 +16,7 @@ import org.springframework.data.rest.core.annotation.RestResource;
  * Date: 13/04/22
  * Time: 19.34
  */
-@RepositoryRestResource(path = "/test", collectionResourceRel = "test")
+@RepositoryRestResource(path = "persons", collectionResourceRel = "persons")
 public interface PersonRepository extends JpaRepository<Person, Long> {
 
     @RestResource(exported = false)

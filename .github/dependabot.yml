@@ -1,13 +1,58 @@
 version: 2
 updates:
+  # Maven dependencies (pom.xml) and the Maven Wrapper (.mvn/wrapper)
   - package-ecosystem: maven
     directory: "/"
     schedule:
       interval: daily
-      time: '05:00'
+      time: "05:00"
       timezone: Asia/Jakarta
     open-pull-requests-limit: 10
-  - package-ecosystem: "github-actions"
+    target-branch: main
+    commit-message:
+      prefix: "build"
+      prefix-development: "build"
+      include: scope
+    labels:
+      - dependencies
+      - java
+    groups:
+      spring-boot:
+        patterns:
+          - "org.springframework.boot*"
+          - "org.springframework*"
+      testing:
+        patterns:
+          - "org.junit*"
+          - "org.mockito*"
+          - "org.assertj*"
+      maven-plugins:
+        patterns:
+          - "org.apache.maven.plugins*"
+          - "org.codehaus.mojo*"
+      minor-and-patch:
+        update-types:
+          - minor
+          - patch
+        exclude-patterns:
+          - "org.springframework*"
+
+  # GitHub Actions used in .github/workflows
+  - package-ecosystem: github-actions
     directory: "/"
     schedule:
-      interval: "daily"
+      interval: daily
+      time: "05:00"
+      timezone: Asia/Jakarta
+    open-pull-requests-limit: 5
+    target-branch: main
+    commit-message:
+      prefix: "ci"
+      include: scope
+    labels:
+      - dependencies
+      - github_actions
+    groups:
+      github-actions:
+        patterns:
+          - "*"

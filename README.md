@@ -1,5 +1,10 @@
 # Spring Boot Reset Password Demo
 
+[![Java CI with Maven](https://github.com/hendisantika/spring-boot-reset-password/actions/workflows/maven.yml/badge.svg)](https://github.com/hendisantika/spring-boot-reset-password/actions/workflows/maven.yml)
+![Java](https://img.shields.io/badge/Java-25-orange?logo=openjdk)
+![Spring Boot](https://img.shields.io/badge/Spring%20Boot-4.1.2-brightgreen?logo=springboot)
+[![Dependabot](https://img.shields.io/badge/Dependabot-enabled-blue?logo=dependabot)](.github/dependabot.yml)
+
 A Spring Boot application demonstrating a complete password reset workflow with email notification functionality. This
 application showcases user authentication, password management, and email-based password recovery.
 
@@ -17,8 +22,8 @@ application showcases user authentication, password management, and email-based 
 
 ## Technologies Used
 
-- **Spring Boot**: 3.5.6
-- **Java**: 21
+- **Spring Boot**: 4.1.2
+- **Java**: 25 (LTS)
 - **Database**: H2 (file-based)
 - **ORM**: Hibernate/JPA
 - **Template Engine**: Thymeleaf
@@ -28,14 +33,14 @@ application showcases user authentication, password management, and email-based 
 
 ## Prerequisites
 
-- Java 21 or higher
-- Maven 3.6+ (or use the included Maven wrapper)
+- JDK 25 or higher (e.g. Eclipse Temurin 25)
+- Maven 3.9+ (or use the included Maven wrapper)
 
 ## Installation & Setup
 
 1. **Clone the repository**
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/hendisantika/spring-boot-reset-password.git
    cd spring-boot-reset-password
    ```
 
@@ -166,6 +171,27 @@ A custom servlet filter handles authentication and redirects:
 java -jar target/spring-boot-reset-password2-0.0.1-SNAPSHOT.jar
 ```
 
+## Continuous Integration
+
+GitHub Actions ([`.github/workflows/maven.yml`](.github/workflows/maven.yml)) runs on every push and pull request to `main`
+(and can be triggered manually):
+
+- **build** - sets up Temurin JDK 25 with Maven caching and runs `mvn -B package` (compile + tests).
+- **dependency-submission** - on pushes to `main` only, uploads the Maven dependency graph to GitHub so Dependabot alerts
+  are more accurate. It is skipped on pull requests because their tokens are read-only.
+
+The workflow uses least-privilege `contents: read` permissions by default, cancels outdated runs on the same branch and
+has a 30-minute timeout.
+
+## Dependency Management
+
+[Dependabot](.github/dependabot.yml) checks for updates every day at 05:00 (Asia/Jakarta):
+
+- **Maven** - updates are grouped (`spring-boot`, `testing`, `maven-plugins`, `minor-and-patch`) to reduce PR noise,
+  committed as `build(deps): ...` and labeled `dependencies` + `java`.
+- **GitHub Actions** - all action updates are grouped into a single PR, committed as `ci(deps): ...` and labeled
+  `dependencies` + `github_actions`.
+
 ## Fixed Issues
 
 This version includes fixes for:
@@ -173,6 +199,8 @@ This version includes fixes for:
 1. **Lombok Configuration**: Added proper annotation processor configuration for Lombok
 2. **Spring Data REST Path**: Fixed repository path configuration to use single path segment
 3. **Build Compilation**: Resolved compilation errors related to Lombok annotation processing
+4. **JDK 25**: Upgraded the project and CI to Java 25 (LTS)
+5. **CI on Pull Requests**: Dependency graph submission no longer fails Dependabot / pull request builds
 
 ## Database Schema
 
